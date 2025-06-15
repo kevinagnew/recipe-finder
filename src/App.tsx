@@ -5,6 +5,8 @@ import { Recipe } from './types/Recipe';
 import AdvancedSearch from './components/AdvancedSearch';
 import './styles/App.css';
 import AdvancedSearchToggle from './components/AdvancedSearchToggle';
+import Input from '@mui/joy/Input';
+import Button from '@mui/joy/Button';
 
 
 const App = () => {
@@ -34,13 +36,13 @@ const App = () => {
             <div className='app-content'>
                 <h1>Recipe Finder</h1>
                 <form onSubmit={handleSubmitSearch}>
-                    <input
+                    <Input
                         type="text"
                         placeholder="Search recipes..."
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
-                    <button type="submit">Search</button>
+                    <Button type="submit">Search</Button>
                     <AdvancedSearchToggle checked={checked} setChecked={setChecked} />
                 </form>
                 { checked ? <AdvancedSearch/> : null}

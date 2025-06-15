@@ -4,10 +4,12 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
+    background-color: whitesmoke;
 }
 
 .app-content {
-    background: black;
+    background: whitesmoke;
+    color: black;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
