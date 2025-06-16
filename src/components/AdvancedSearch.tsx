@@ -5,7 +5,7 @@ import { Button, Checkbox, Input } from '@mui/joy';
 import { ListItemText } from '@mui/material';
 import { useState } from 'react';
 
-const options = ['Calories', 'Carbs'];
+const options = ['Calories', 'Carbs', 'Cuisine', ];
 
 const AdvancedSearch = ({
     advancedSearchValues,
@@ -153,6 +153,32 @@ const AdvancedSearch = ({
                                                     setAdvancedSearchValues({
                                                         ...advancedSearchValues,
                                                         maxCarbs: '',
+                                                    });
+                                                }}
+                                            >
+                                                Clear
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : option === 'Cuisine' ? (
+                                <div key={option}>
+                                    <div key={`${option}`}>
+                                        Cuisine:
+                                        <div className="input-box">
+                                            <Input
+                                                size="sm"
+                                                type="text"
+                                                value={advancedSearchValues['cuisine'] || ''}
+                                                onChange={(e) => handleInputChange('cuisine', e.target.value)}
+                                            />
+                                            <Button
+                                                size="sm"
+                                                variant="outlined"
+                                                onClick={() => {
+                                                    setAdvancedSearchValues({
+                                                        ...advancedSearchValues,
+                                                        cuisine: '',
                                                     });
                                                 }}
                                             >

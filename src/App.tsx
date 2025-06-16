@@ -32,8 +32,9 @@ const App = () => {
     return (
         <div className="App">
             <div className='app-content'>
-                <h1>Recipe Finder</h1>
-                <form onSubmit={handleSubmitSearch}>
+                {/* Search Input */}
+                <h2>Recipe Finder</h2>
+                <form className="search-recipe-field" onSubmit={handleSubmitSearch}>
                     <Input
                         type="text"
                         placeholder="Search recipes..."
@@ -42,22 +43,27 @@ const App = () => {
                     />
                 </form>
                 <Button className="defaultButton" onClick={handleSubmitSearch}>Search</Button>
-                {/* Display Advanced Search */}
+                {/* Advanced Search */}
                 <AdvancedSearch
                     advancedSearchValues={advancedSearchValues}
                     setAdvancedSearchValues={setAdvancedSearchValues}
                 />
-                {/* Display Search Results */}
+                {/* Recipe Search Results */}
                 {totalResults > 0 ?
                     <>
-                        <h2 className="recipe-results">Results: {totalResults} recipes found</h2><p className="recipe-index">Showing {number} recipes starting from offset {offset}</p>
-                        <div className="recipes">
-                            {recipes?.map((item, index) => (
-                                <RecipeCard key={index} recipe={item} />
-                            ))}
+                        <h2 className="recipe-results">Results: {totalResults} recipes found</h2>
+                        <div className='recipe-results-container'>
+                            <div className="recipes">
+                                {recipes?.map((item, index) => (
+                                    <RecipeCard key={index} recipe={item} />
+                                ))}
+                            </div>
                         </div>
+                        <p className="recipe-index">Showing {number} recipes starting from offset {offset}</p>
+                        {/* TODO: Add pagination for results */}
                     </>
-                    : null}
+                    : null
+                }
             </div>
         </div>
     );

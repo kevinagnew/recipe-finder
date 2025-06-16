@@ -1,7 +1,5 @@
 .App {
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
     width: 100vw;
     background-color: whitesmoke;
@@ -12,9 +10,14 @@
     color: black;
     padding: 20px;
     max-height: 100vh;
+    width: 100%;
     overflow-y: auto;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.recipe-results-container{
+    display: flex;
 }
 
 input {
@@ -32,6 +35,11 @@ button {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
+    width: 100%;
+}
+
+.search-recipe-field {
+    width: 25%;
 }
 
 .recipe-card,

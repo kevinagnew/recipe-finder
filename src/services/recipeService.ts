@@ -21,7 +21,9 @@ export const searchRecipes = async (query: string, advancedSearch): Promise<{
     if (advancedSearch?.maxCarbs) {
         baseUrl += `&maxCarbs=${advancedSearch.maxCarbs}`;
     }
-    console.log("KA - baseUrl", baseUrl);
+    if (advancedSearch?.cuisine) {
+        baseUrl += `&cuisine=${advancedSearch.cuisine}`;
+    }
 
     const res = await fetch(baseUrl, {
         headers: {
