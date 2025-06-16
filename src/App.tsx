@@ -32,37 +32,49 @@ const App = () => {
     return (
         <div className="App">
             <div className='app-content'>
-                {/* Search Input */}
-                <h2>Recipe Finder</h2>
-                <form className="search-recipe-field" onSubmit={handleSubmitSearch}>
-                    <Input
-                        type="text"
-                        placeholder="Search recipes..."
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
+                {/* Search Panel */}
+                <div className='search-container'>
+                    {/* Search Input */}
+                    <h2>Recipe Finder</h2>
+                    <form className="search-recipe-field" onSubmit={handleSubmitSearch}>
+                        <Input
+                            type="text"
+                            placeholder="Search recipes..."
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                        />
+                    </form>
+                    <Button className="defaultButton" onClick={handleSubmitSearch}>Search</Button>
+                    {/* Advanced Search */}
+                    <AdvancedSearch
+                        advancedSearchValues={advancedSearchValues}
+                        setAdvancedSearchValues={setAdvancedSearchValues}
                     />
-                </form>
-                <Button className="defaultButton" onClick={handleSubmitSearch}>Search</Button>
-                {/* Advanced Search */}
-                <AdvancedSearch
-                    advancedSearchValues={advancedSearchValues}
-                    setAdvancedSearchValues={setAdvancedSearchValues}
-                />
+                </div>
                 {/* Recipe Search Results */}
                 {totalResults > 0 ?
                     <>
-                        <h2 className="recipe-results">Results: {totalResults} recipes found</h2>
-                        <div className='recipe-results-container'>
-                            <div className="recipes">
-                                {recipes?.map((item, index) => (
-                                    <RecipeCard key={index} recipe={item} />
-                                ))}
+                        <div className='recipe-results-content'>
+                            <h2 className="recipe-results">Results: {totalResults} recipes found</h2>
+                            <div className='recipe-results-container'>
+                                <div className="recipes">
+                                    {recipes?.map((item, index) => (
+                                        <RecipeCard key={index} recipe={item} />
+                                    ))}
+                                </div>
+                            </div>
+                            <p className="recipe-index">Showing {number} recipes starting from offset {offset}</p>
+                            {/* TODO: Add pagination for results */}
+                        </div>
+                    </>
+                    : 
+                    <>
+                        <div className='recipe-results-content'>
+                            <div className='no-results'>
+                                No results found for your search, configure filters or try a different recipe.
                             </div>
                         </div>
-                        <p className="recipe-index">Showing {number} recipes starting from offset {offset}</p>
-                        {/* TODO: Add pagination for results */}
                     </>
-                    : null
                 }
             </div>
         </div>

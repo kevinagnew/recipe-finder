@@ -4,6 +4,8 @@ import MenuItem from '@mui/joy/MenuItem';
 import { Button, Checkbox, Input } from '@mui/joy';
 import { ListItemText } from '@mui/material';
 import { useState } from 'react';
+import IconButton from '@mui/joy/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const options = ['Calories', 'Carbs', 'Cuisine', ];
 
@@ -60,137 +62,130 @@ const AdvancedSearch = ({
             </Menu>
             {selectedOptions.length > 0 ?
                 <div>
-                    <ul>
-                        <form>
-                        {selectedOptions.map((option) => (
-                            option === 'Calories' ? (
-                                <div key={option}>
-                                    <div key={`${option}-min`}>
-                                        Minimum Calories:
-                                        <div className="input-box">
-                                            <Input
-                                                size="sm"
-                                                type="number"
-                                                value={advancedSearchValues['minCalories'] || ''}
-                                                onChange={(e) => handleInputChange('minCalories', e.target.value)}
-                                            />
-                                            <Button
-                                                size="sm"
-                                                variant="outlined"
-                                                onClick={() => {
-                                                    setAdvancedSearchValues({
-                                                        ...advancedSearchValues,
-                                                        minCalories: '',
-                                                    });
-                                                }}
-                                            >
-                                                Clear
-                                            </Button>
-                                        </div>
-                                    </div>
-                                    <div key={`${option}-max`}>
-                                        Maximum Calories:
-                                        <div className="input-box">
-                                            <Input
-                                                size="sm"
-                                                type="number"
-                                                value={advancedSearchValues['maxCalories'] || ''}
-                                                onChange={(e) => handleInputChange('maxCalories', e.target.value)}
-                                            />
-                                            <Button
-                                                size="sm"
-                                                variant="outlined"
-                                                onClick={() => {
-                                                    setAdvancedSearchValues({
-                                                        ...advancedSearchValues,
-                                                        maxCalories: '',
-                                                    });
-                                                }}
-                                            >
-                                                Clear
-                                            </Button>
-                                        </div>
+                    <form>
+                    {selectedOptions.map((option) => (
+                        option === 'Calories' ? (
+                            <div key={option}>
+                                <div key={`${option}-min`}>
+                                    Minimum Calories:
+                                    <div className="input-box">
+                                        <Input
+                                            size="sm"
+                                            type="number"
+                                            value={advancedSearchValues['minCalories'] || ''}
+                                            onChange={(e) => handleInputChange('minCalories', e.target.value)}
+                                        />
+                                        <IconButton
+                                            size="sm"
+                                            onClick={() => {
+                                                setAdvancedSearchValues({
+                                                    ...advancedSearchValues,
+                                                    minCalories: '',
+                                                });
+                                            }}
+                                        >
+                                            <CloseIcon/>
+                                        </IconButton>
                                     </div>
                                 </div>
-                            ) : option === 'Carbs' ? (
-                                <div key={option}>
-                                    <div key={`${option}-min`}>
-                                        Minimum Carbs:
-                                        <div className="input-box">
-                                            <Input
-                                                size="sm"
-                                                type="number"
-                                                value={advancedSearchValues['minCarbs'] || ''}
-                                                onChange={(e) => handleInputChange('minCarbs', e.target.value)}
-                                            />
-                                            <Button
-                                                size="sm"
-                                                variant="outlined"
-                                                onClick={() => {
-                                                    setAdvancedSearchValues({
-                                                        ...advancedSearchValues,
-                                                        minCarbs: '',
-                                                    });
-                                                }}
-                                            >
-                                                Clear
-                                            </Button>
-                                        </div>
-                                    </div>
-                                    <div key={`${option}-max`}>
-                                        Maximum Carbs:
-                                        <div className="input-box">
-                                            <Input
-                                                size="sm"
-                                                type="number"
-                                                value={advancedSearchValues['maxCarbs'] || ''}
-                                                onChange={(e) => handleInputChange('maxCarbs', e.target.value)}
-                                            />
-                                            <Button
-                                                size="sm"
-                                                variant="outlined"
-                                                onClick={() => {
-                                                    setAdvancedSearchValues({
-                                                        ...advancedSearchValues,
-                                                        maxCarbs: '',
-                                                    });
-                                                }}
-                                            >
-                                                Clear
-                                            </Button>
-                                        </div>
+                                <div key={`${option}-max`}>
+                                    Maximum Calories:
+                                    <div className="input-box">
+                                        <Input
+                                            size="sm"
+                                            type="number"
+                                            value={advancedSearchValues['maxCalories'] || ''}
+                                            onChange={(e) => handleInputChange('maxCalories', e.target.value)}
+                                        />
+                                        <IconButton
+                                            size="sm"
+                                            onClick={() => {
+                                                setAdvancedSearchValues({
+                                                    ...advancedSearchValues,
+                                                    maxCalories: '',
+                                                });
+                                            }}
+                                        >
+                                            <CloseIcon/>
+                                        </IconButton>
                                     </div>
                                 </div>
-                            ) : option === 'Cuisine' ? (
-                                <div key={option}>
-                                    <div key={`${option}`}>
-                                        Cuisine:
-                                        <div className="input-box">
-                                            <Input
-                                                size="sm"
-                                                type="text"
-                                                value={advancedSearchValues['cuisine'] || ''}
-                                                onChange={(e) => handleInputChange('cuisine', e.target.value)}
-                                            />
-                                            <Button
-                                                size="sm"
-                                                variant="outlined"
-                                                onClick={() => {
-                                                    setAdvancedSearchValues({
-                                                        ...advancedSearchValues,
-                                                        cuisine: '',
-                                                    });
-                                                }}
-                                            >
-                                                Clear
-                                            </Button>
-                                        </div>
+                            </div>
+                        ) : option === 'Carbs' ? (
+                            <div key={option}>
+                                <div key={`${option}-min`}>
+                                    Minimum Carbs:
+                                    <div className="input-box">
+                                        <Input
+                                            size="sm"
+                                            type="number"
+                                            value={advancedSearchValues['minCarbs'] || ''}
+                                            onChange={(e) => handleInputChange('minCarbs', e.target.value)}
+                                        />
+                                        <IconButton
+                                            size="sm"
+                                            onClick={() => {
+                                                setAdvancedSearchValues({
+                                                    ...advancedSearchValues,
+                                                    minCarbs: '',
+                                                });
+                                            }}
+                                        >
+                                            <CloseIcon/>
+                                        </IconButton>
                                     </div>
                                 </div>
-                            ) : null
-                        ))}
-                        </form>
-                    </ul>
+                                <div key={`${option}-max`}>
+                                    Maximum Carbs:
+                                    <div className="input-box">
+                                        <Input
+                                            size="sm"
+                                            type="number"
+                                            value={advancedSearchValues['maxCarbs'] || ''}
+                                            onChange={(e) => handleInputChange('maxCarbs', e.target.value)}
+                                        />
+                                        <IconButton
+                                            size="sm"
+                                            onClick={() => {
+                                                setAdvancedSearchValues({
+                                                    ...advancedSearchValues,
+                                                    maxCarbs: '',
+                                                });
+                                            }}
+                                        >
+                                            <CloseIcon/>
+                                        </IconButton>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : option === 'Cuisine' ? (
+                            <div key={option}>
+                                <div key={`${option}`}>
+                                    Cuisine:
+                                    <div className="input-box">
+                                        <Input
+                                            size="sm"
+                                            type="text"
+                                            value={advancedSearchValues['cuisine'] || ''}
+                                            onChange={(e) => handleInputChange('cuisine', e.target.value)}
+                                        />
+                                        <IconButton
+                                            size="sm"
+                                            onClick={() => {
+                                                setAdvancedSearchValues({
+                                                    ...advancedSearchValues,
+                                                    cuisine: '',
+                                                });
+                                            }}
+                                        >
+                                            <CloseIcon/>
+                                        </IconButton>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : null
+                    ))}
+                    </form>
                 </div>
                 : null
             }

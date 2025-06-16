@@ -2,22 +2,36 @@
     display: flex;
     height: 100vh;
     width: 100vw;
+    color: black;
     background-color: whitesmoke;
 }
 
 .app-content {
-    background: whitesmoke;
-    color: black;
-    padding: 20px;
-    max-height: 100vh;
-    width: 100%;
+    display: flex;
+    flex: 1;
+    height: 100%;
     overflow-y: auto;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    box-sizing: border-box;
 }
 
-.recipe-results-container{
-    display: flex;
+.recipe-results-content {
+    width: 80%;
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.search-container {
+    width: 20%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow-y: auto;
 }
 
 input {
@@ -36,10 +50,6 @@ button {
     gap: 20px;
     padding: 20px;
     width: 100%;
-}
-
-.search-recipe-field {
-    width: 25%;
 }
 
 .recipe-card,
@@ -82,4 +92,20 @@ button {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
+}
+
+.no-results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: auto;
+    font-size: 1.2em;
+    color: #888;
+    margin: 0;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #f9f9f9;
 }
