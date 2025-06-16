@@ -4,7 +4,6 @@ import { searchRecipes } from './services/recipeService';
 import { Recipe } from './types/Recipe';
 import AdvancedSearch from './components/AdvancedSearch';
 import './styles/App.css';
-import AdvancedSearchToggle from './components/AdvancedSearchToggle';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 
@@ -15,13 +14,12 @@ const App = () => {
     const [totalResults, setTotalResults] = useState(0);
     const [offset, setOffset] = useState(0);
     const [number, setNumber] = useState(0);
-    const [checked, setChecked] = useState(false);
-    
+    const [advancedSearchValues, setAdvancedSearchValues] = useState({});
+
     const handleSubmitSearch = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!query) return;
         try {
-            const data = await searchRecipes(query);
+            const data = await searchRecipes(query, advancedSearchValues);
             setTotalResults(data.totalResults);
             setOffset(data.offset);
             setNumber(data.number);
@@ -42,19 +40,24 @@ const App = () => {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
-                    <Button type="submit">Search</Button>
-                    <AdvancedSearchToggle checked={checked} setChecked={setChecked} />
                 </form>
-                { checked ? <AdvancedSearch/> : null}
-                { totalResults > 0 ?
-                <div className="recipes">
-                    <h2 className="recipe-results">Results: {totalResults} recipes found</h2>
-                    <p className="recipe-index">Showing {number} recipes starting from offset {offset}</p>
-                    {recipes?.map((item, index) => (
-                        <RecipeCard key={index} recipe={item} />
-                    ))}
-                </div>
-                : null }
+                <Button className="defaultButton" onClick={handleSubmitSearch}>Search</Button>
+                {/* Display Advanced Search */}
+                <AdvancedSearch
+                    advancedSearchValues={advancedSearchValues}
+                    setAdvancedSearchValues={setAdvancedSearchValues}
+                />
+                {/* Display Search Results */}
+                {totalResults > 0 ?
+                    <>
+                        <h2 className="recipe-results">Results: {totalResults} recipes found</h2><p className="recipe-index">Showing {number} recipes starting from offset {offset}</p>
+                        <div className="recipes">
+                            {recipes?.map((item, index) => (
+                                <RecipeCard key={index} recipe={item} />
+                            ))}
+                        </div>
+                    </>
+                    : null}
             </div>
         </div>
     );
