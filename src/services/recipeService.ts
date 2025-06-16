@@ -8,10 +8,6 @@ export const searchRecipes = async (query: string, advancedSearch): Promise<{
     number: number;
     results: Recipe[];
 }> => {
-    // console.log("KA - query", query);
-    // console.log("KA - advancedSearch", advancedSearch);
-    // const testURL = 'https://api.spoonacular.com/recipes/complexSearch?query=${query}&maxFat=25&number=2';
-    //const testURL2 = `https://api.edamam.com/search?q=${query}&app_id=${YOUR_APP_ID}&app_key=${YOUR_APP_KEY}`;
     let baseUrl = `https://api.spoonacular.com/recipes/complexSearch?query=${query}`;
     if (advancedSearch?.minCalories) {
         baseUrl += `&minCalories=${advancedSearch.minCalories}`;
