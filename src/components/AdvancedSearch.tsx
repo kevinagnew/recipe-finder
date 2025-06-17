@@ -7,7 +7,7 @@ import { useState } from 'react';
 import IconButton from '@mui/joy/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-const options = ['Calories', 'Carbs', 'Cuisine', ];
+const filters = ['Calories', 'Carbs', 'Cuisine', ];
 
 const AdvancedSearch = ({
     advancedSearchValues,
@@ -50,7 +50,7 @@ const AdvancedSearch = ({
                 Filters
             </Button>
             <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                {options.map((option) => (
+                {filters.map((option) => (
                     <MenuItem key={option} onClick={() => {
                         handleToggle(option)
                         handleClose();

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import RecipeCard from './components/RecipeCard';
-import { searchRecipes } from './services/recipeService';
+import { searchRecipes, getRecipeInformation } from './services/recipeService';
 import { Recipe } from './types/Recipe';
 import AdvancedSearch from './components/AdvancedSearch';
 import './styles/App.css';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
+import { IconButton } from '@mui/joy';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const App = () => {
@@ -15,6 +17,8 @@ const App = () => {
     const [offset, setOffset] = useState(0);
     const [number, setNumber] = useState(0);
     const [advancedSearchValues, setAdvancedSearchValues] = useState({});
+    const [isRecipeSelected, setIsRecipeSelected] = useState(false);
+    const [selectedRecipe, setSelectedRecipe] = useState(null);
 
     const handleSubmitSearch = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,6 +32,13 @@ const App = () => {
             console.error('Error fetching recipes:', error);
         }
     };
+
+    const handleRecipeClick = async (recipe: Recipe) => {
+        const isRecipeOpened = isRecipeSelected ? true : !isRecipeSelected;
+        setIsRecipeSelected(isRecipeOpened);
+        const recipeData = await getRecipeInformation(recipe.id);
+        setSelectedRecipe(recipeData);
+    }
 
     return (
         <div className="App">
@@ -59,7 +70,11 @@ const App = () => {
                             <div className='recipe-results-container'>
                                 <div className="recipes">
                                     {recipes?.map((item, index) => (
-                                        <RecipeCard key={index} recipe={item} />
+                                        <RecipeCard 
+                                            key={index} 
+                                            recipe={item} 
+                                            onClick={() => handleRecipeClick(item)}
+                                        />
                                     ))}
                                 </div>
                             </div>
@@ -76,6 +91,36 @@ const App = () => {
                         </div>
                     </>
                 }
+                {/* Recipe Information */}
+                { isRecipeSelected ? 
+                <div className="recipe-container">
+                    <div>Recipe Information</div>
+                    <IconButton
+                        size="sm"
+                        onClick={() => {
+                            setIsRecipeSelected(false);
+                        }}
+                    >
+                        <CloseIcon/>
+                    </IconButton>
+                    <div className="recipe-details">
+                        <h3>{selectedRecipe?.title}</h3>
+                        <img src={selectedRecipe?.image} alt={selectedRecipe?.title} />
+                        <p>Ready in: {selectedRecipe?.readyInMinutes} minutes</p>
+                        <p>Servings: {selectedRecipe?.servings}</p>
+                        <p>Ingrediants:</p>
+                        <ul>
+                            {selectedRecipe?.extendedIngredients?.map((ingredient, index) => (
+                                <li key={index}>
+                                    {ingredient.original}
+                                </li>
+                            ))}
+                        </ul>
+                        <p>Instructions: </p>
+                        <div dangerouslySetInnerHTML={{ __html: selectedRecipe?.instructions || '' }} />
+                    </div>
+                </div>
+                : null }
             </div>
         </div>
     );
