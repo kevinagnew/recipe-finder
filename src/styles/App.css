@@ -136,3 +136,12 @@ button {
     padding: 10px;
     background-color: #f9f9f9;
 }
+
+.pagination-container {
+    display: flex;
+    justify-content: right;
+}
+
+.pagination-buttons {
+    display: flex;
+}

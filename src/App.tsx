@@ -8,6 +8,8 @@ import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 import { IconButton } from '@mui/joy';
 import CloseIcon from '@mui/icons-material/Close';
+import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
+import NavigateBeforeOutlinedIcon from '@mui/icons-material/NavigateBeforeOutlined';
 
 
 const App = () => {
@@ -15,18 +17,17 @@ const App = () => {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [totalResults, setTotalResults] = useState(0);
     const [offset, setOffset] = useState(0);
-    const [number, setNumber] = useState(0);
     const [advancedSearchValues, setAdvancedSearchValues] = useState({});
     const [isRecipeSelected, setIsRecipeSelected] = useState(false);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-    const handleSubmitSearch = async (e: React.FormEvent) => {
+    const handleSubmitSearch = async (e: React.FormEvent, offset?) => {
         e.preventDefault();
         try {
-            const data = await searchRecipes(query, advancedSearchValues);
+            const standardOffset = offset || 0;
+            const data = await searchRecipes(query, advancedSearchValues, standardOffset);
             setTotalResults(data.totalResults);
             setOffset(data.offset);
-            setNumber(data.number);
             setRecipes(data.results);
         } catch (error) {
             console.error('Error fetching recipes:', error);
@@ -38,6 +39,12 @@ const App = () => {
         setIsRecipeSelected(isRecipeOpened);
         const recipeData = await getRecipeInformation(recipe.id);
         setSelectedRecipe(recipeData);
+    }
+
+    const handlePagiationClick = async (direction: number) => {
+        const newOffset = offset + direction;
+        setOffset(newOffset);
+        handleSubmitSearch({ preventDefault: () => {} } as React.FormEvent, newOffset);
     }
 
     return (
@@ -78,7 +85,28 @@ const App = () => {
                                     ))}
                                 </div>
                             </div>
-                            <p className="recipe-index">Showing {number} recipes starting from offset {offset}</p>
+                            <div className='pagination-container'>
+                                <div className='pagination-buttons'>
+                                    <IconButton
+                                        size="sm"
+                                        disabled={offset === 0}
+                                        onClick={() => {
+                                            handlePagiationClick(-1);
+                                        }}
+                                    >
+                                        <NavigateBeforeOutlinedIcon/>
+                                    </IconButton>
+                                    <p>{offset}</p>
+                                    <IconButton
+                                        size="sm"
+                                        onClick={() => {
+                                            handlePagiationClick(1);
+                                        }}
+                                    >
+                                        <NavigateNextOutlinedIcon/>
+                                    </IconButton>
+                                </div>
+                            </div>
                             {/* TODO: Add pagination for results */}
                         </div>
                     </>

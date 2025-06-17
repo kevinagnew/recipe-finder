@@ -2,7 +2,7 @@ import { Recipe } from '../types/Recipe';
 
 const SPOONACULAR_API_KEY = import.meta.env.VITE_API_KEY;
 
-export const searchRecipes = async (query: string, advancedSearch): Promise<{
+export const searchRecipes = async (query: string, advancedSearch, offset): Promise<{
     totalResults: number;
     offset: number;
     number: number;
@@ -23,6 +23,9 @@ export const searchRecipes = async (query: string, advancedSearch): Promise<{
     }
     if (advancedSearch?.cuisine) {
         baseUrl += `&cuisine=${advancedSearch.cuisine}`;
+    }
+    if (offset) {
+        baseUrl += `&offset=${offset}`;
     }
 
     const res = await fetch(baseUrl, {
