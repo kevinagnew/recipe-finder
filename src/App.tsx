@@ -136,7 +136,7 @@ const App = () => {
                         <img src={selectedRecipe?.image} alt={selectedRecipe?.title} />
                         <p>Ready in: {selectedRecipe?.readyInMinutes} minutes</p>
                         <p>Servings: {selectedRecipe?.servings}</p>
-                        <p>Ingrediants:</p>
+                        <p>Ingredients:</p>
                         <ul>
                             {selectedRecipe?.extendedIngredients?.map((ingredient, index) => (
                                 <li key={index}>
